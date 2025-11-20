@@ -17,29 +17,29 @@ public class AlertsMethods {
         this.driver = driver;
     }
 
-    public void fillAlert(String text){
+    public void fillAlert (String text){
         Alert fourthAlert = driver.switchTo().alert();
         fourthAlert.sendKeys(text);
         fourthAlert.accept();
-
     }
 
-    public void waitForALert(){
+    public void waitForAlert(){
         WebDriverWait waitExplicit = new WebDriverWait(driver, Duration.ofSeconds(10));
         waitExplicit.until(ExpectedConditions.alertIsPresent());
     }
 
     public void acceptAlert(){
-        waitForALert();
-        Alert secondAlertElement=driver.switchTo().alert();
+        waitForAlert();
+        Alert secondAlertElement = driver.switchTo().alert();
         secondAlertElement.accept();
     }
 
     public void dismissAlert(){
-        waitForALert();
-        Alert secondAlertElement=driver.switchTo().alert();
+        waitForAlert();
+        Alert secondAlertElement = driver.switchTo().alert();
         secondAlertElement.dismiss();
     }
+
     public void verifyConfirmAlert(String actualText, boolean chooseAccept){
         if (chooseAccept) {
             Assert.assertEquals(actualText, "You selected Ok");
@@ -48,13 +48,14 @@ public class AlertsMethods {
             Assert.assertEquals(actualText, "You selected Cancel");
             System.out.println("User selected Cancel");
         }
-
     }
-    public void acceptAlertWeb(boolean chooseAccept) {
-        if (chooseAccept) {
-            thirdAlert.dismiss();
-        } else
-            thirdAlert.dismiss();
 
+    public void acceptAlert(boolean chooseAccept){
+        Alert thirdAlert = driver.switchTo().alert();
+        if (chooseAccept) {
+            thirdAlert.accept();
+        } else {
+            thirdAlert.dismiss();
+        }
     }
 }

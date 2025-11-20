@@ -1,47 +1,34 @@
 package tests;
 
-import helpMethods.ElementsMethod;
+import helpMethods.ElementsMethods;
 import helpMethods.FrameMethods;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.Test;
+import pages.FramesPage;
+import pages.HomePage;
+import sharedData.SharedData;
 
-import java.time.Duration;
+public class Frames extends SharedData {
 
-public class Frames {
-    public WebDriver driver;
-    ElementsMethod elementsMethod;
+    ElementsMethods elementsMethods;
     FrameMethods frameMethods;
 
     @Test
 
     public void metodaTest() {
-        //Deschidem un browser
 
-        driver = new ChromeDriver();
-        elementsMethod = new ElementsMethod(driver);
-        frameMethods = new FrameMethods(driver);
+        elementsMethods = new ElementsMethods(getDriver());
+        frameMethods = new FrameMethods(getDriver());
 
-        //Accesam un URL
-        driver.get("https://demoqa.com/");
-        driver.manage().window().maximize();
-        WebElement framesMeniu = driver.findElement(By.xpath("//h5[text()='Alerts, Frame & Windows']"));
+        HomePage homePage = new HomePage(getDriver());
+        homePage.clickAlertFrameWindow();
 
-        elementsMethod.javaScriptElement(framesMeniu);
-        WebElement tabButton = driver.findElement(By.xpath("//span[text()='Frames']"));
-        elementsMethod.javaScriptElement(tabButton);
+        FramesPage frames = new FramesPage(getDriver());
+        frames.clickFramesButton();
 
         frameMethods.switchToSpecificFrame("frame1");
-
-        driver.switchTo().parentFrame();
 
         frameMethods.switchToParent();
 
         frameMethods.switchToSpecificFrame("frame2");
-
-
     }
 }

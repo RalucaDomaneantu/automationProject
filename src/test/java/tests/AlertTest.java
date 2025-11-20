@@ -1,65 +1,30 @@
+
 package tests;
 
 import helpMethods.AlertsMethods;
-import helpMethods.ElementsMethod;
-import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
+import helpMethods.ElementsMethods;
 import org.testng.annotations.Test;
+import pages.AlertsWindows;
+import pages.HomePage;
+import sharedData.SharedData;
 
-import java.time.Duration;
+public class AlertTest extends SharedData{
+    ElementsMethods elementsMethods;
+    AlertsMethods alertsMethods;
 
-public class AlertsMethods {
+    @Test
 
-    public WebDriver driver;
+    public void metodaTest() {
 
-    public AlertsMethods(WebDriver driver) {
-        this.driver = driver;
-    }
 
-    public void fillAlert(String text){
-        waitForAlert();
-        Alert fourthAlert = driver.switchTo().alert();
-        fourthAlert.sendKeys(text);
-        fourthAlert.accept();
-    }
+        elementsMethods = new ElementsMethods(getDriver());
+        alertsMethods = new AlertsMethods(getDriver());
 
-    public void waitForAlert(){
-        WebDriverWait waitExplicit=new WebDriverWait(driver, Duration.ofSeconds(10));
-        waitExplicit.until(ExpectedConditions.alertIsPresent());
-    }
+        HomePage homePage = new HomePage(getDriver());
+        homePage.clickAlertFrameWindow();
 
-    public void acceptAlert(){
-        waitForAlert();
-        Alert secondAlertElement = driver.switchTo().alert();
-        secondAlertElement.accept();
-    }
-
-    public void dismissAlert(){
-        waitForAlert();
-        Alert secondAlertElement = driver.switchTo().alert();
-        secondAlertElement.dismiss();
-    }
-
-    public void verifyConfirmAlert(String actualText, boolean chooseAccept){
-        if (chooseAccept) {
-            Assert.assertEquals(actualText, "You selected Ok");
-            System.out.println("User selected OK");
-        } else  {
-            Assert.assertEquals(actualText, "You selected Cancel");
-            System.out.println("User selected Cancel");
-        }
-    }
-
-    public void acceptAlert(boolean chooseAccept){
-        Alert thirdAlert = driver.switchTo().alert();
-        if(chooseAccept) {
-            thirdAlert.accept();
-        } else {
-            thirdAlert.dismiss();
-        }
+        AlertsWindows alertsWindows = new AlertsWindows(getDriver());
+        alertsWindows.clickAlert();
+        alertsWindows.dealAlertProcess();
     }
 }
