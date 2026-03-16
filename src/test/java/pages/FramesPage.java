@@ -19,6 +19,7 @@ public class FramesPage extends BasePage {
 
     public void clickFramesButton(){
         elementsMethod.javaScriptElement(framesButton);
+        loggerUtility.infoLog("The user opens the Frames tab");
     }
 
     public void switchFrames(String frame1, String frame2){

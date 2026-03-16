@@ -7,9 +7,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 import pages.HomePage;
+import sharedData.Hooks;
 import sharedData.SharedData;
 
-public class TabWindowTest extends SharedData {
+public class TabWindowTest extends Hooks {
     public WebDriver driver;
 
     ElementsMethods elementsMethods;
